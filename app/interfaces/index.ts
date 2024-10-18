@@ -13,16 +13,22 @@ export interface ITask {
   title: string;
   dueDate: string;
 }
+type Theme = "light" | "dark";
 export interface IGlobal {
   user: IUser | null;
   tasks: ITask[] | [];
+  theme: Theme;
 }
 
-export interface IActionType {
+// export interface IActionType {
+//   type: string;
+//   payload?: IUser | ITask | string | null;
+// }
+
+export interface IActionType<T = any> {
   type: string;
-  payload?: IUser | ITask | null;
+  payload?: T | null; // T can be any type, and we include null as an option
 }
-
 export interface ISignUpInputs {
   name: string;
   email: string;

@@ -19,7 +19,7 @@ function CustomPagination({
             <Pagination>
                 <PaginationContent >
                     {currentPage > 1 && (
-                        <PaginationItem className="cursor-pointer">
+                        <PaginationItem className="cursor-pointer bg-card">
                             <PaginationPrevious onClick={() => goToPage(currentPage - 1)} />
                         </PaginationItem>
                     )}

@@ -151,7 +151,7 @@ const ProfileModel = ({ setOpenProfileModel }: { setOpenProfileModel: React.Disp
     return (
         <div>
             <Dialog>
-                <div className="bg-white w-80  h-auto p-2 rounded-md ">
+                <div className="bg-background w-80  h-auto p-2 rounded-md ">
                     <div className="grid place-content-end">
                         <X
                             onClick={() => setOpenProfileModel(false)}

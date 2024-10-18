@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import _axios from "../../config/axios.config";
 import { toast } from "sonner";
 import axios from "axios";
-import LoadingPosts from "@/components/LoadingPosts";
+import LoadingPosts from "@/components/Loadingtasks";
 import { useGlobalState } from "@/app/context/globalContext";
 import { Button } from "@/components/ui/button";
 import { NotebookText } from "lucide-react";
@@ -15,6 +15,8 @@ import CustomPagination from "@/components/CustomPagination";
 
 const Page = () => {
     const { state, dispatch } = useGlobalState();
+    console.log('state is ')
+    console.log(state)
     const { tasks } = state;
 
     const [loading, setLoading] = useState(false);
@@ -67,11 +69,11 @@ const Page = () => {
         fetchPosts();
     }, [filterQuery, currentPage, state.user?.accessToken]); // Fetch posts when filter query or page changes
 
-    const goToPage = (page) => {
+    const goToPage = (page: number) => {
         setCurrentPage(page);
     };
 
-    function setFilterValue(query) {
+    function setFilterValue(query: string) {
         const [name, value] = query.split(":");
         setFilterQuery((prev) => ({ ...prev, [name]: value }));
         setCurrentPage(1); // Reset to first page on filter change
@@ -114,7 +116,7 @@ const Page = () => {
     };
 
     return (
-        <div className="mt-16 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mt-16 container mx-auto px-4 sm:px-6 lg:px-8 ">
             <div className="grid place-content-end">
                 <Button
                     className="bg-green-500 hover:bg-green-600"

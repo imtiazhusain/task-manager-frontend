@@ -36,7 +36,7 @@ const Task: React.FC<PostProps> = ({
 
 
     return (
-        <div className="rounded-md   bg-white  shadow-md transition-all duration-300 animate-fadeIn  p-4 space-y-3 min-w-[350px]">
+        <div className="rounded-md   bg-card shadow-md transition-all duration-300 animate-fadeIn  p-4 space-y-3 min-w-[350px]">
             <div className="flex items-center justify-between">
 
                 <div className="flex items-center">

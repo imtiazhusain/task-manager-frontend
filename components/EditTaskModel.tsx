@@ -251,7 +251,7 @@ const EditTaskModel = ({
     return (
         <Dialog>
             <div className=" flex-grow flex items-center justify-center my-6">
-                <div className=" bg-white w-80 border border-gray-300 md:w-[600px]  p-4 rounded-md my-4 md:my-0">
+                <div className=" bg-background w-80 border border-background md:w-[600px]  p-4 rounded-md my-4 md:my-0">
                     <div className="grid place-content-end">
                         <X
                             onClick={() => setOpenEditModel(false)}

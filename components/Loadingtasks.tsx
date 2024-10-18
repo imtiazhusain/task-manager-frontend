@@ -3,12 +3,12 @@ import React from "react";
 
 const LoadingPosts = () => {
   return (
-    <div className="mt-16  grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))]    gap-y-6 gap-x-10 place-content-center w-full place-items-center">
+    <div className="mt-16  grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))]    gap-y-6 gap-x-10 place-content-center w-full place-items-center ">
       {Array.from({ length: 8 }).map((_, index) => {
         return (
           <div
             key={index}
-            className="flex flex-col space-y-3 bg-gray-300 p-2 rounded-md h-[250px] w-[350px]"
+            className="flex flex-col space-y-3 bg-card p-2 rounded-md h-[250px] w-[350px] shadow-md"
           >
             <div className="flex items-center gap-3">
 
