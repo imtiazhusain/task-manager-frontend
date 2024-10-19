@@ -13,7 +13,6 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import ProfileModel from "./ProfileModel";
 import EditTaskModel from "./EditTaskModel";
 
 interface PostProps {

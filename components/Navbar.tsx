@@ -9,24 +9,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOut, Moon, Sun, User } from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGlobalState } from "@/app/context/globalContext";
-import ProfileModel from "./ProfileModel";
 import { Button } from "./ui/button";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import userUser from "@/hooks/useUser";
 
 const Navbar = () => {
   const user = userUser()
-  console.log('user .....')
-  console.log(user)
+
   const { dispatch } = useGlobalState();
 
   const pathname = usePathname();
   const [isClicked, setIsClicked] = useState(false);
-  const [openProfileModel, setOpenProfileModel] = useState(false);
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -39,13 +36,7 @@ const Navbar = () => {
     setIsClicked((pre) => !pre);
   };
 
-  const handleLogout = () => {
-    dispatch({ type: "LOGOUT_USER" });
-  };
 
-  const handleEditProfile = () => {
-    setOpenProfileModel(true);
-  };
 
   const changeTheme = () => {
     dispatch({ type: "SET_THEME", payload: "dark" });
@@ -156,16 +147,9 @@ const Navbar = () => {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem
-                    className="cursor-pointer "
-                    onClick={handleEditProfile}
-                  >
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
+
                   <DropdownMenuItem
                     className="cursor-pointer"
-                    // onClick={handleLogout}
                     onClick={() => signOut()}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
@@ -211,9 +195,7 @@ const Navbar = () => {
         </div>
       )}
 
-      {openProfileModel && (
-        <ProfileModel setOpenProfileModel={setOpenProfileModel} />
-      )}
+
     </nav>
   );
 };
