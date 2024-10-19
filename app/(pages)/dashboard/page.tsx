@@ -9,13 +9,13 @@ const Page = () => {
 
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Dashboard />
-        </Suspense>
+
+        <Dashboard />
+
     );
 };
 
-export default ProtectedRoute(Page);
+export default Page;
 
 
 

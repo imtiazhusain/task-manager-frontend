@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import _axios from '@/app/config/axios.config'
 import { Button } from '@/components/ui/button';
@@ -31,6 +31,17 @@ const Page = () => {
         profilePic: '',
         confirmPassword: '',
     });
+
+    useEffect(() => {
+        const fetchMessage = async () => {
+            const res = await fetch('/api/auth/hello');
+            const data = await res.json();
+            console.log(data)
+        };
+
+        fetchMessage();
+    },)
+
 
 
 

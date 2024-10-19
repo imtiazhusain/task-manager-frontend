@@ -7,9 +7,8 @@ const Page = () => {
 
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Login />
-        </Suspense>
+        <Login />
+
     )
 }
 

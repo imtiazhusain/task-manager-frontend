@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link';
 import axios from 'axios'
+import { signIn } from 'next-auth/react';
 interface ILoginInputs {
     email: string,
     password: string
@@ -76,58 +77,22 @@ const Login = () => {
         }
 
         try {
-            const response = await _axios.post("/user/login", inputs);
-            // Handle the response data here
 
-            if (typeof window !== 'undefined') {
-                // Safe to use localStorage here
-                localStorage.setItem("userInfo", JSON.stringify(response?.data?.userData));
-
-            } else {
-                console.log('local storge is undefined...')
-            }
-
-
-            dispatch({ type: "SET_USER", payload: response?.data?.userData });
-
-            router.push('/dashboard')
-
-            // redirect("/");
-
+            const result = await signIn("credentials", {
+                username: inputs.email,
+                password: inputs.password,
+                redirect: true,
+                callbackUrl: "/dashboard",
+            });
         } catch (error) {
-            console.log(error);
 
-
-            // Handle Axios-specific error
-
-            if (axios.isAxiosError(error)) {
-                // Handle Axios-specific error
-                console.error('Error fetching data:', error?.message);
-
-                if (error?.response?.data?.message) {
-                    toast.error(
-                        error?.response?.data?.message
-                        || "Something went wrong"
-
-                    );
-                } else if (error?.message) {
-                    toast.error(
-                        error?.message
-                        || "Something went wrong"
-
-                    );
-                } else {
-                    toast.error('Something went wrong please refresh the page')
-                }
-            } else {
-                // Handle unexpected errors
-                console.error('Unexpected error:', error);
-            }
-
-
+            console.log(error)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
+
+
+
     };
 
 

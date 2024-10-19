@@ -15,10 +15,15 @@ import { usePathname } from "next/navigation";
 import { useGlobalState } from "@/app/context/globalContext";
 import ProfileModel from "./ProfileModel";
 import { Button } from "./ui/button";
+import { signIn, signOut, useSession } from "next-auth/react";
+import userUser from "@/hooks/useUser";
 
 const Navbar = () => {
-  const { state, dispatch } = useGlobalState();
-  const { user } = state;
+  const user = userUser()
+  console.log('user .....')
+  console.log(user)
+  const { dispatch } = useGlobalState();
+
   const pathname = usePathname();
   const [isClicked, setIsClicked] = useState(false);
   const [openProfileModel, setOpenProfileModel] = useState(false);
@@ -45,6 +50,9 @@ const Navbar = () => {
   const changeTheme = () => {
     dispatch({ type: "SET_THEME", payload: "dark" });
   };
+
+
+
   return (
     <nav className="bg-gray-800 dark:bg-card sticky top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,13 +107,23 @@ const Navbar = () => {
             </div>
           </div>
 
+
+
           <div className="flex  gap-4">
             <div className="hidden md:block">
               <div className="ml-4 flex items-center space-x-4">
                 {navigation.map((item, index) => {
+                  const isActive = pathname === item.href;
                   if (index === 1 && !user) return null;
                   if ((index === 2 || index === 3) && user) return null;
-                  const isActive = pathname === item.href;
+                  if (index === 2) {
+                    return <button key={index} className={` text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 font-medium rounded-md ${isActive ? "bg-gray-900 text-white" : ""
+                      }`} onClick={() => {
+                        setIsClicked(false)
+                        signIn()
+                      }}>{item.name}</button>
+                  }
+
                   return (
                     <Link
                       key={index}
@@ -147,7 +165,8 @@ const Navbar = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer"
-                    onClick={handleLogout}
+                    // onClick={handleLogout}
+                    onClick={() => signOut()}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>

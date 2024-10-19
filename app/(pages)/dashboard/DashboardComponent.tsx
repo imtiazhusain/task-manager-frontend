@@ -12,14 +12,15 @@ import Filter from "@/components/Filter";
 import Task from "@/components/Task";
 import AddTaskModel from "@/components/AddTaskModel";
 import CustomPagination from "@/components/CustomPagination";
+import userUser from "@/hooks/useUser";
 const DashboardComponent = () => {
 
+    const user = userUser()
+
     const { state, dispatch } = useGlobalState();
-    console.log('state is ')
-    console.log(state)
     const { tasks } = state;
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [filterQuery, setFilterQuery] = useState({
         status: "",
         time: "Latest",
@@ -40,7 +41,7 @@ const DashboardComponent = () => {
                     {
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${state.user?.accessToken}`,
+                            Authorization: `Bearer ${user?.accessToken}`,
                         },
                     }
                 );
@@ -64,8 +65,12 @@ const DashboardComponent = () => {
             }
         };
 
-        fetchPosts();
-    }, [filterQuery, currentPage, state.user?.accessToken]); // Fetch posts when filter query or page changes
+        if (user?.accessToken) {
+            console.log('token hai')
+            console.log(user.accessToken)
+            fetchPosts();
+        }
+    }, [filterQuery, currentPage, user?.accessToken]); // Fetch posts when filter query or page changes
 
     const goToPage = (page: number) => {
         setCurrentPage(page);
@@ -85,7 +90,7 @@ const DashboardComponent = () => {
             await _axios.delete(`/tasks/${ID}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${state.user?.accessToken}`,
+                    Authorization: `Bearer ${user?.accessToken}`,
                 },
             });
 
