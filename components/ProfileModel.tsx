@@ -9,12 +9,14 @@ import _axios from "@/app/config/axios.config";
 import { useGlobalState } from "@/app/context/globalContext";
 import { IEditUser, IUser } from "@/app/interfaces";
 import axios from "axios";
+import userUser from "@/hooks/useUser";
 
 
 
 const ProfileModel = ({ setOpenProfileModel }: { setOpenProfileModel: React.Dispatch<React.SetStateAction<boolean>> }) => {
+    const user = userUser()
     const { state, dispatch } = useGlobalState()
-    const { user } = state
+    // const { user } = state
     const [userInputs, setUserInputs] = useState<IEditUser>({
         name: '',
         email: '',

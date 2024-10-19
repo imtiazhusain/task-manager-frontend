@@ -1,16 +1,12 @@
-"use client";
-import React, { useState } from "react";
+
+import React from "react";
 import Dialog from "./Dialog";
-import { toast } from "sonner";
 import { Loader2, X } from "lucide-react";
 
-import _axios from "@/app/config/axios.config";
 
-import { useGlobalState } from "@/app/context/globalContext";
 import { ITask } from "@/app/interfaces";
-import axios from "axios";
-import { validatePostInputs } from "@/lib/validateInputs";
 import { Button } from "./ui/button";
+import useEditTask from "@/hooks/useEditTask";
 
 const EditTaskModel = ({
     setOpenEditModel,
@@ -19,106 +15,22 @@ const EditTaskModel = ({
     setOpenEditModel: React.Dispatch<React.SetStateAction<boolean>>;
     task: ITask
 }) => {
-
-
     const { _id, ...remainingValues } = task;
 
-    console.log('values....')
-    console.log(remainingValues)
-    const { state, dispatch } = useGlobalState();
-    console.log('state')
-    console.log(state)
-    const { user } = state;
-    const [inputs, setInputs] = useState<ITask>(remainingValues);
-    const [loading, setLoading] = useState(false);
-    const [isErrors, setIsErrors] = useState<ITask>({
-        description: "",
-        status: "",
-        title: "",
-        dueDate: "",
-    });
+    const {
+        inputs,
+        isErrors,
+        loading,
+        handleChange,
+        handleTextAreaChange,
+        handleStatusChange,
+        handleSubmit,
+    } = useEditTask({
+        initialInputs: remainingValues,
+        setOpenModel: setOpenEditModel,
+        taskId: _id,
+    })
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const name = event.target.name;
-        if (name == "image" && event?.target?.files) {
-            setInputs((values) => ({ ...values, [name]: event.target.files![0] }));
-        } else {
-            const value = event.target.value;
-            setInputs((values) => ({ ...values, [name]: value }));
-        }
-    };
-
-    const handleTextAreaChange = (
-        event: React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs((values) => ({ ...values, [name]: value }));
-    };
-
-    const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        console.log(name);
-        console.log(value);
-        setInputs((values) => ({ ...values, [name]: value }));
-    };
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        setLoading(true);
-
-        // for input validation
-        const shouldReturn = validatePostInputs(inputs, setIsErrors);
-
-        if (shouldReturn) {
-            setLoading(false);
-            return;
-        }
-
-
-        try {
-
-            const response = await _axios.patch(`/tasks/${_id}`, inputs, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${user?.accessToken}`,
-                },
-            });
-            toast.success("Post updated successfully");
-            setOpenEditModel(false)
-
-            const { updatedTask } = response.data
-
-            dispatch({ type: 'UPDATE_TASK', payload: updatedTask as ITask })
-
-
-
-
-
-        } catch (error) {
-            console.log(error);
-
-            if (axios.isAxiosError(error)) {
-                // Handle Axios-specific error
-                console.error("Error fetching data:", error?.message);
-
-                if (error?.response?.data?.message) {
-                    toast.error(error?.response?.data?.message || "Something went wrong");
-                } else if (error?.message) {
-                    toast.error(error?.message || "Something went wrong");
-                } else {
-                    toast.error("Something went wrong please refresh the page");
-                }
-            } else {
-                // Handle unexpected errors
-                console.error("Unexpected error:", error);
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <Dialog>

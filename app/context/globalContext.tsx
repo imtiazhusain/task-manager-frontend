@@ -103,10 +103,10 @@
 
 "use client";
 import { createContext, ReactNode, useContext, useReducer } from "react";
-import { IActionType, IGlobal, ITask, IUser } from "../interfaces";
+import { IActionType, IGlobal, ITask } from "../interfaces";
 
 // Define default state for the global context
-const defaultState: IGlobal = { user: null, tasks: [], theme: "light" };
+const defaultState: IGlobal = { tasks: [], theme: "light" };
 
 
 // Create context with initial state and dispatch function
@@ -122,20 +122,12 @@ export const useGlobalState = () => {
 // Reducer function for state updates
 const globalReducer = (state: IGlobal, action: IActionType<any>): IGlobal => {
     switch (action.type) {
-        case "SET_USER":
-            return { ...state, user: action.payload as IUser | null };
 
-        case "LOGOUT_USER":
-            if (typeof window !== "undefined") {
-                localStorage.removeItem("userInfo");
-            } else {
-                console.log("local storage is undefined...");
-            }
-            return { ...state, user: null };
+
+
 
         case "SET_THEME":
             const newTheme = state.theme === "light" ? "dark" : "light";
-            console.log(`Theme changed from ${state.theme} to ${newTheme}`);
             document.body.classList.remove(state.theme); // Remove the previous theme class
             document.body.classList.add(newTheme); // Add the new theme class
             return { ...state, theme: newTheme };
@@ -171,17 +163,11 @@ const globalReducer = (state: IGlobal, action: IActionType<any>): IGlobal => {
 
 // Global state provider component
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
-    let userInfoString: string | null = null;
-    if (typeof window !== "undefined") {
-        userInfoString = localStorage.getItem("userInfo");
-    } else {
-        console.log("local storage is undefined...");
-    }
 
-    const userInfo = userInfoString ? JSON.parse(userInfoString) as IUser : null;
+
+
 
     const [state, dispatch] = useReducer(globalReducer, {
-        user: userInfo,
         tasks: [],
         theme: "light",
     });

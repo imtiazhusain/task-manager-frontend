@@ -15,7 +15,6 @@ export interface ITask {
 }
 type Theme = "light" | "dark";
 export interface IGlobal {
-  user: IUser | null;
   tasks: ITask[] | [];
   theme: Theme;
 }

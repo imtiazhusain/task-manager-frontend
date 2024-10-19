@@ -27,7 +27,7 @@ export default function RootLayout({
       >
         <Provider>
 
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="bottom-right" />
           <GlobalStateProvider>
             <main className="min-h-svh flex flex-col">
 
