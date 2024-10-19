@@ -66,8 +66,6 @@ const DashboardComponent = () => {
         };
 
         if (user?.accessToken) {
-            console.log('token hai')
-            console.log(user.accessToken)
             fetchPosts();
         }
     }, [filterQuery, currentPage, user?.accessToken]); // Fetch posts when filter query or page changes

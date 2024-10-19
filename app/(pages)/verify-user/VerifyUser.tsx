@@ -74,7 +74,6 @@ const VerifyUser = () => {
 
             const response = await _axios.post("/user/verify_user", data);
 
-            console.log(response);
 
 
 
@@ -125,7 +124,6 @@ const VerifyUser = () => {
 
             const response = await _axios.post("/user/send_otp", data);
 
-            console.log(response);
 
             toast.success("Code resent successfully");
         } catch (error) {

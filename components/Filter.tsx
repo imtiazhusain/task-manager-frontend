@@ -13,7 +13,6 @@ interface FilterProps {
 
 
 const Filter: React.FC<FilterProps> = ({ setFilterValue, filterQuery }) => {
-    console.log(filterQuery)
     return (
         <div className="space-y-2 mb-5">
 
