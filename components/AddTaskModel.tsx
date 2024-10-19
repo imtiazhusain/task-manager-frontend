@@ -8,7 +8,6 @@ import axios from "axios";
 import { ITask } from "@/app/interfaces";
 import { validatePostInputs } from "@/lib/validateInputs";
 import { useGlobalState } from "@/app/context/globalContext";
-import ProtectedRoute from "@/components/ProtectedRoutes";
 import Dialog from "@/components/Dialog";
 
 const Page = ({
@@ -221,4 +220,4 @@ const Page = ({
     );
 };
 
-export default ProtectedRoute(Page);
+export default Page;
