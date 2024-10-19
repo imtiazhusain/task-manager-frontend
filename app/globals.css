@@ -7,7 +7,7 @@
 /* chad cn classes */
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210, 31%, 95%;
     /* --main-background: 210, 31%, 95%; */
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;

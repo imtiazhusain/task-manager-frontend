@@ -23,136 +23,8 @@ const EditTaskModel = ({
 
     const { _id, ...remainingValues } = task;
 
-    // const [userInputs, setUserInputs] = useState<IEditUser>({
-    //     name: '',
-    //     email: '',
-    //     profilePic: null,
-    //     _id: '',
-    //     password: ''
-
-    // });
-    // const [hovered, setHovered] = useState(false);
-
-    // const [imagePreviewUrl, setImagePreviewUrl] = useState(user?.profilePic);
-    // const fileInputRef = useRef<HTMLInputElement>(null);
-    // const [loading, setLoading] = useState(false);
-
-    // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const file = event.target.files![0];
-    //     if (file && file.type.match("image.*")) {
-    //         const reader = new FileReader();
-    //         reader.onloadend = () => {
-    //             if (typeof reader.result === 'string') {
-    //                 setImagePreviewUrl(reader.result);
-    //             } else {
-    //                 // Set to undefined if the result is not a string
-    //                 setImagePreviewUrl(undefined);
-    //             }
-    //             setUserInputs((values) => ({ ...values, profilePic: file }));
-    //         };
-    //         reader.readAsDataURL(file);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (user)
-    //         setUserInputs({
-    //             name: user?.name,
-    //             email: user?.email,
-    //             profilePic: user?.profilePic,
-    //             password: "",
-    //             _id: user?._id,
-    //         });
-    // }, [user]);
-
-    // const handleButtonClick = () => {
-    //     if (fileInputRef.current)
-    //         fileInputRef.current.click();
-    // };
-
-    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
-    //     setUserInputs((values) => ({ ...values, [name]: value }));
-    // };
-
-    // const EditProfile = async () => {
-    //     setLoading(true);
-    //     const formData = new FormData();
-    //     formData.append("name", userInputs?.name);
-    //     formData.append("email", userInputs?.email);
-    //     if (userInputs.profilePic)
-    //         formData.append("profilePic", userInputs?.profilePic);
-    //     formData.append("_id", userInputs?._id);
-    //     if (userInputs?.password) {
-    //         formData.append("password", userInputs?.password);
-    //     }
-    //     try {
-    //         const response = await _axios.patch("/user/edit-user", formData, {
-    //             headers: {
-    //                 "Content-Type": "multipart/form-data",
-    //                 Authorization: `Bearer ${user?.accessToken}`,
-    //             },
-    //         });
-
-    //         toast.success("User updated Successfully");
-
-    //         const dataFromApi = response?.data?.data;
-
-    //         if (user) {
-
-    //             const tempUser: IUser = {
-    //                 ...user,
-    //                 profilePic: dataFromApi.profilePic,
-    //                 email: dataFromApi.email,
-    //                 name: dataFromApi.name,
-    //             };
-
-    //             if (typeof window !== 'undefined') {
-    //                 // Safe to use localStorage here
-    //                 localStorage.setItem("userInfo", JSON.stringify(tempUser));
-
-    //             } else {
-    //                 console.log('local storge is undefined...')
-    //             }
-
-    //             dispatch({ type: "SET_USER", payload: tempUser });
-    //         }
-
-    //     } catch (error) {
-    //         console.log(error);
-
-    //         // Handle Axios-specific error
-
-    //         if (axios.isAxiosError(error)) {
-    //             // Handle Axios-specific error
-    //             console.error('Error fetching data:', error?.message);
-
-    //             if (error?.response?.data?.message) {
-    //                 toast.error(
-    //                     error?.response?.data?.message
-    //                     || "Something went wrong"
-
-    //                 );
-    //             } else if (error?.message) {
-    //                 toast.error(
-    //                     error?.message
-    //                     || "Something went wrong"
-
-    //                 );
-    //             } else {
-    //                 toast.error('Something went wrong please refresh the page')
-    //             }
-    //         } else {
-    //             // Handle unexpected errors
-    //             console.error('Unexpected error:', error);
-    //         }
-
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
+    console.log('values....')
+    console.log(remainingValues)
     const { state, dispatch } = useGlobalState();
     console.log('state')
     console.log(state)
@@ -309,7 +181,7 @@ const EditTaskModel = ({
                                     Due Date
                                 </label>
                                 <input
-                                    type="date"
+                                    type="datetime-local"
                                     name="dueDate"
                                     value={inputs.dueDate || ""}
                                     onChange={handleChange}
